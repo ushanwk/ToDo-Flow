@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -8,16 +9,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Task } from "./components/Task.tsx";
+import {Task} from './components/Task.tsx';
 
 function App(): React.JSX.Element {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
   const handleTask = () => {
+    Keyboard.dismiss();
     // @ts-ignore
     setTaskItems([...taskItems, task]);
     setTask('');
+  };
+
+  const completeTask = (index: any) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
   };
 
   return (
@@ -27,8 +35,16 @@ function App(): React.JSX.Element {
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
         <View style={styles.items}>
           {/*This is where the tasks will go*/}
-          {taskItems.map(item => {
-            return <Task text={item} />;
+          {taskItems.map((item, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  completeTask(index);
+                }}>
+                <Task text={item} />
+              </TouchableOpacity>
+            );
           })}
         </View>
       </View>
