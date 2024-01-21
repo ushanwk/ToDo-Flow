@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import {Task} from './components/Task.tsx';
 
 function App(): React.JSX.Element {
@@ -14,6 +14,17 @@ function App(): React.JSX.Element {
           <Task text={'Task 2'} />
         </View>
       </View>
+      {/*Write a task*/}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        style={styles.writeTask}>
+        <TextInput style={styles.input} placeholder={'Write a Task'} />
+        <TouchableOpacity>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -33,8 +44,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   items: {
-    marginTop: 30
+    marginTop: 30,
   },
+  writeTask: {
+    position: 'absolute',
+    bottom: 60,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  input: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    borderRadius: 60,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    width: 250,
+  },
+  addWrapper: {
+    width: 60,
+    height: 60,
+    borderRadius: 60,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+  },
+  addText: {},
 });
 
 export default App;
