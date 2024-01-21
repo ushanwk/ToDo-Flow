@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import {StyleSheet, Text, View} from 'react-native';
+import {Task} from './components/Task.tsx';
 
 function App(): React.JSX.Element {
   return (
@@ -7,7 +8,11 @@ function App(): React.JSX.Element {
       {/*Today,s Tasks*/}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
-        <View style={styles.items}>{/*This is where the tasks will go*/}</View>
+        <View style={styles.items}>
+          {/*This is where the tasks will go*/}
+          <Task text={'Task 1'} />
+          <Task text={'Task 2'} />
+        </View>
       </View>
     </View>
   );
@@ -27,7 +32,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  items: {},
+  items: {
+    marginTop: 30
+  },
 });
 
 export default App;
